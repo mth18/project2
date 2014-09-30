@@ -93,7 +93,7 @@ int main(int argc, char **argv)
 
 int funct_n(int *n)
 {
-	if(n%2==1)
+	if(n%2==1)                //think about this one, it doesn't do what you think it does.
 		return n/2;
 	else
 		return 3*n+1;
@@ -116,6 +116,6 @@ int collatz(int N, int T)
 	for(i=1;i<N;i++)
 	{
 		n=funct_n(n);
-		histogram[i] = n;
+		histogram[i] = n;       //think about this assignment
 	}
 }
