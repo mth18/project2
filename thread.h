@@ -1,3 +1,12 @@
-int funct_n(int n);
+typedef int bool;
+#define true 1
+#define false 0
 
-int funct_ai(int i, int n, int prev);
+typedef struct val
+{
+	int *num;
+	bool selected;
+}val;
+
+void create_threads(int N, int T);
+void *collatz(void *num);

@@ -71,51 +71,34 @@ int histogram[10000];
 
 int main(int argc, char **argv)
 {
-	int N = argv[1];
-	int T = argv[2];
+	create_threads(atoi(argv[1]),atoi(argv[2]));
+	
+	return 0;
+}
 
-	pthread_t h_thread; //create a thread handle
-
-	//start the thread and save the result
-	int n_thread = pthread_create(&h_thread,0,collatz(N,T),0);
-
-	//Validate the result
-	if(ret!=0)
-	{
-		printf("Create thread failed! error: %d",ret);
-		return 1;
+void create_threads(int N, int T)
+{
+	printf("Creating threads\n");
+	//create "T" number of threads to run
+	pthread_t thread_h[T];
+	int i,ret = 0;
+	val newv;
+	newv->num=N;
+	newv->selected = false;
+	for(i=0;i<T;i++)
+	{	
+		ret = pthread_create(&thread_h[T],0,collatz,(void*)&newV);
+		if(ret != 0)
+			printf("ERROR");
+		pthread_join(thread_h[T], 0);
 	}
-
-	//wait until the thread ends
-	pthread_join(h_thread, 0);
-	return 0;
 }
 
-int funct_n(int *n)
+void *collatz(void *num)
 {
-	if(n%2==1)
-		return n/2;
-	else
-		return 3*n+1;
-	return 0;
-}
+	int *n = (int*)num;
+	int i;
+	for(i=0;i<*n;i++)
 
-int funct_ai(int i, int n, int prev)
-{
-	if(i==0)
-		return n;
-	else if(i>0)
-		return funct_n(prev);
-	return 0;
-}
 
-int collatz(int N, int T)
-{
-	int i,n=N;
-	histogram[0]=n;
-	for(i=1;i<N;i++)
-	{
-		n=funct_n(n);
-		histogram[i] = n;
-	}
 }
